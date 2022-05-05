@@ -5,15 +5,12 @@ namespace ConsoleApp
 {
     public class Program
     {
-        private const string Path = "log.txt";
-       
-
         public static void Main()
         {
             ILogger[] loggers = new ILogger[]
             {
                 new ConsoleLogger(),
-                new FileLogger(),
+                new FileLogger("log.txt"),
                 new SocketLogger(host:"google.com",port:80)
             };
 

@@ -1,30 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ConsoleApp.Logger;
-using ConsoleApp;
-using System.Net;
-using System.Net.Sockets;
 namespace ConsoleApp.Logger
 {
-    class CommonLogger : ILogger
+    public class CommonLogger : ILogger
     {
-        private ILogger[] loggers;
+        public ILogger[] loggers;
+
         public CommonLogger(ILogger[] loggers)
         {
             this.loggers = loggers;
         }
-        public virtual void Log(params String[] messages)
+
+        public void Log(params string[] messages)
         {
-            
+            Console.Write($"{DateTime.Now.ToString()}: ");
+            for (int i = 0; i < messages.Length; i++)
+            {
+                Console.Write(messages[i]);
+            }
+            Console.WriteLine();
         }
         public void Dispose(bool disposing)
         {
-            this.Dispose(disposing: true);
-
-            GC.SuppressFinalize(this);
         }
 
-
+        public void Dispose()
+        {
+        }
     }
 }

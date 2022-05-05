@@ -1,47 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net;
-using System.Net.Sockets;
-using ConsoleApp.Logger;
-
 using System.IO;
-
-
-
-public class FileLogger : WriterLogger
+namespace ConsoleApp.Logger
+{
+    public class FileLogger : WriterLogger
     {
-        private bool disposed;
-        protected FileLogger stream;
-        public String path;
-        
-    public FileLogger()
+        bool disposed;
+        protected FileStream stream;
+        string path;
+
+        ~FileLogger()
         {
-        TextWriter writer;
-        FileStream stream = new FileStream("plik-1.txt", FileMode.Append);
-        writer = new StreamWriter(stream, Encoding.UTF8);
-        writer.Write("Wiadomosc do logowania ...");
-        writer.Flush();
-
-    }
-
-
-
-    ~FileLogger()
-        {
-            this.Dispose(false);
+            this.Dispose();
         }
 
-    protected virtual void Dispose(bool disposing)
-    {
-   
-    }
+        public override void Dispose(bool disposing)
+        {
+            stream.Dispose();
+            path = null;
+            disposed = true;
+        }
 
-  
-    public override void Dispose()
-    {
-        throw new NotImplementedException();
+        public FileLogger(string path)
+        {
+            this.path = path;
+        }
     }
 }
-
-
